@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Garapi</title>
+		<LINK REL="SHORTCUT ICON" HREF="imgs/garapi.ico">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="css/main.css"/>
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/global.js"></script>
+		<script type="text/javascript" src="js/jsCanvasLayer.js"></script>
+		<script type="text/javascript" src="js/graph.js"></script>
+		<script type="text/javascript" src="js/canvas.js"></script>
+		<script type="text/javascript" src="js/colorPicker/jscolor.js"></script>
+    </head>
+    <body>
+        <div id="wrap0">
+            <div id="wrap1">
+                <div id="wrap2">
+					<header>
+						<div id="top">
+							<div id="garapi-logo">
+								<img src="imgs/icon.png" />
+							</div>
+							<div id="title">
+								<h1></h1>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div id="toolbar">
+							<ul>
+								<li><a id="tb_options" title="The Garapi preferences">Options</a></li>
+								<li class="vert_div" ></li>
+								<li><a id="tb_clear" title="Clear the canvas"></a></li>
+								<li class="vert_div" ></li>
+								<li><a id="tb_zoom_in" title="zoom in"></a></li>
+								<li><a id="tb_zoom_out" title="zoom out"></a></li>
+								<li><a id="tb_zoom_reset" title="reset zoom"></a></li>
+								<li class="vert_div" ></li>
+								<li><a id="tb_nav_up" title="scroll up"></a></li>
+								<li><a id="tb_nav_down" title="scroll down"></a></li>
+								<li><a id="tb_nav_left" title="scroll left"></a></li>
+								<li><a id="tb_nav_right" title="scroll right"></a></li>
+								<li><a id="tb_nav_reset" title="center the origin"></a></li>
+								<li class="vert_div" ></li>
+								<li>
+									<form id="tb_nav_center_form">
+										<a id="tb_nav_center" title="center this point">Center</a>
+										<input type="text" name="tb_center_x" size="4" />
+										<input type="text" name="tb_center_y" size="4" />
+									</form>
+								</li>
+								<li class="vert_div" ></li>
+								<li><a id="tb_view_funcs" title="Hide function panel"></a></li>
+								<li><a id="tb_view_plots" title="Hide plot panel"></a></li>
+								<li class="vert_div" ></li>
+								<li><a id="tb_about" title="Show the infomation about the application and the author">About</a></li>
+							</ul>
+						</div>
+					</header>
+					<section>
+						<div id="viewpoint">
+							<!--							<canvas id="graph">
+															Your browser does not support &lt;canvas&gt; element.
+														</canvas>-->
+							<div id="graph">
+							</div>
+						</div>
+						<div id="settings" class="overlay" style="display: none">
+
+						</div>
+						<div id="about" class="overlay" style="display: none">
+
+						</div>
+						<div id="panel-functions" class="panel">
+							<a id="panel-functions-close" class="close-button">x					
+							</a>
+							<div class="panel-title">
+								<h3>Function Panel</h3>
+							</div>
+							<div class="panel-content">
+								<table>
+									<thead>
+										<tr>
+											<th scope="col" style="width: 10px;">No</th>
+											<th scope="col" >Function</th>
+											<th scope="col" style="width: 10px;">Show</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!--										<tr>
+																					<td>1</td>
+																					<td style="text-align: left">
+																						<p>
+																							<a>sin(x)*x</a>
+																						</p>
+																						<p>
+																							<span class="fcolor" style="background: #3F7DA3"></span>
+																							<span class="fdel"><a onclick="canvas2d.remove_function(-1)">delete</a></span>
+																						</p>
+																						<p class="clear"></p>
+																					</td>
+																					<td><input type="checkbox" checked="checked" onclick="toggle_function_show(-1, this.checked)" /></td>
+																				</tr>-->
+									</tbody>
+								</table>
+							</div>
+							<div class="panel-foot">
+								<ul>
+									<li><a id="pb-funcs-add">Add</a></li>
+									<li><a id="pb-funcs-empty">Empty</a></li>
+									<li><a id="pb-funcs-hide">Hide</a></li>
+									<li><a id="pb-funcs-show">Show</a></li>
+								</ul>
+							</div>
+						</div>
+						<div id="panel-plots" class="panel">
+							<a id="panel-plots-close" class="close-button">x
+							</a>
+							<div class="panel-title">
+								<h3>Plot Panel</h3>
+							</div>
+							<div class="panel-content">
+								<table>
+									<thead>
+										<tr>
+											<th scope="col" style="width: 10px;">Label</th>
+											<th scope="col" >Plot</th>
+											<th scope="col" style="width: 10px;">Show</th>
+										</tr>
+									</thead>
+									<tbody>
+<!--										<tr>
+											<td>1</td>
+											<td style="text-align: left">
+												<p>
+													<a>x:1.1200078 | y:72021099</a>
+												</p>
+												<p>
+													<span class="fcolor" style="background: #3F7DA3"></span>
+													<span class="fdel"><a onclick="canvas2d.remove_function(-1)">delete</a></span>
+												</p>
+												<p class="clear"></p>
+											</td>
+											<td><input type="checkbox" checked="checked" onclick="toggle_function_show(-1, this.checked)" /></td>
+										</tr>-->
+									</tbody>
+								</table>
+							</div>
+							<div class="panel-foot">
+								<ul>
+									<li><a id="pb-plots-add">Add</a></li>
+									<li><a id="pb-plots-empty">Empty</a></li>
+									<li><a id="pb-plots-hide">Hide</a></li>
+									<li><a id="pb-plots-show">Show</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- dialogs -->
+						<div id="dialog-func-info" class="dialog" style="display: none">
+							<a id="dialog-func-close" class="close-button">x</a>
+							<div class="dialog-title">
+								<h3>Add new function</h3>
+							</div>
+							<div class="dialog-content">
+								<p>Your function</p>
+								<textarea id="pb-funcs-txt-func"></textarea>
+								<p class="element">
+									<span>Color</span>
+									<input id="pb-funcs-txt-color" class="color" type="text" maxlength="6" size="6" value="B31227"/>
+									<span class="note">The color of this function graph</span>
+								</p>
+							</div>
+							<div class="dialog-foot">
+								<ul>
+									<li><a class="dialog-button" id="pb-funcs-btn-ok">Add new</a></li>
+									<li><a class="dialog-button" id="pb-funcs-btn-cancel">Cancel</a></li>
+								</ul>
+							</div>
+						</div>
+						<div id="dialog-plot-info" class="dialog" style="display: none">
+							<a id="dialog-plot-close" class="close-button">x</a>
+							<div class="dialog-title">
+								<h3>Add new function</h3>
+							</div>
+							<div class="dialog-content">
+								<table>
+									<tr>
+										<td  class="label">Plot label</td>
+										<td><input id="pb-plots-txt-label" class="dialog-text" size="6" value="A1"/></td>
+										<td  class="label">Plot color</td>
+										<td><input id="pb-plots-txt-color" class="dialog-text color" value="1241FF" size="6" maxlength="6" /></td>
+									</tr>
+									<tr>
+										<td class="label">X</td>
+										<td><input id="pb-plots-txt-x" class="dialog-text" size="6"/></td>
+										<td class="label">Y</td>
+										<td><input id="pb-plots-txt-y" class="dialog-text" size="6"/></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>
+											<input type="checkbox" id="pb-plots-chk-showlbl" />Show label
+										</td>
+										<td></td>
+										<td>
+											<input type="checkbox" id="pb-plots-chk-showcoord" />Show coordinate
+										</td>
+									</tr>
+									<tr>
+										<td>Belong to</td>
+										<td colspan="3">
+											<select id="pb-plots-combo-f">
+												<option value="-1" selected="selected">Free plot (not belong to any function)</option>
+												<option value="0">f1: x*x*x</option>
+												<option value="1">f2: sin(x)/2</option>
+											</select>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="dialog-foot">
+								<ul>
+									<li><a class="dialog-button" id="pb-plots-btn-ok">Add new</a></li>
+									<li><a class="dialog-button" id="pb-plots-btn-cancel">Cancel</a></li>
+								</ul>
+							</div>
+						</div>
+					</section>
+                </div>
+            </div>
+        </div>
+		<script type="text/javascript" src="js/action.js"></script>
+    </body>
+</html>
