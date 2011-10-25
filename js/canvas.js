@@ -363,4 +363,9 @@ function Canvas2D( jsCvsLayer, view, setting ) {
 		plot.draw( this.canvas, this.view, this.setting );
 		return true;
 	}
+	
+	this.center = function (x, y) {
+		this.view.center(x, y);
+		this.redraw();
+	}
 }

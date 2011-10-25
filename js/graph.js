@@ -42,7 +42,7 @@ function Function(func_str, func_color) {
 
 function View( setting, x, y ) {
 	this.origin_coord = new Point( x, y );
-	this.origin = this.origin_coord;
+	this.origin = new Point(x, y)
 	
 	this.space_x = setting.space_x;
 	this.space_y = setting.space_y;
@@ -170,6 +170,14 @@ function View( setting, x, y ) {
 		}
 
 		this.origin_coord = new Point( this.origin_coord.x + deltaX, this.origin_coord.y + deltaY )
+	}
+	
+	/**
+	 * Centering the canvas at the given point of the Catersian Coord
+	 */
+	this.center = function( x, y ){
+		this.origin_coord.x = this.origin.x - x * this.space_x;
+		this.origin_coord.y = this.origin.y + y * this.space_y;
 	}
 }
 

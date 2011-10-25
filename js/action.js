@@ -23,6 +23,8 @@ $(document).ready(function(){
 //	canvas2d.add_function( new Function( "sin(x)*x/2-1", "#32B366"));
 //	load_functions();
 //	// end init
+	canvas2d.add_plot( new Plot(1, 5, "A", "#f0f000", true, true));
+	load_plots();
 	canvas2d.redraw();
 	$('#dialog-func-info').css('width','500px');
 	$('#dialog-func-info').css('left', (window.innerWidth - 500) / 2);
@@ -81,6 +83,10 @@ $('#tb_nav_reset').click( function(){
 	canvas2d.span_reset();
 	canvas2d.redraw();
 } )
+
+$('#tb_nav_center').click( function(){
+	canvas2d.center( $('#tb_center_x').val() * 1, $('#tb_center_y').val() * 1);
+})
 
 $('#tb_view_funcs').click( function(){
 	clicker('panel-functions');
@@ -325,7 +331,7 @@ function load_plots() {
 		'<td>'+f.obj.label+'</td>\n'+
 		'<td style="text-align: left">\n'+
 		'<p><a onclick="show_plot_info( false, '+i+')">x:'+f.obj.point.x.toPrecision(6)+ ' | y:' + f.obj.point.y.toPrecision(6) +'</a></p>\n'+
-		'<p><span class="fcolor" style="background: '+f.obj.color+'"></span>\n'+
+		'<p><span class="fcolor" style="background: '+f.obj.color+'"></span><span class="fcenter"><a onclick="canvas2d.center( '+ f.obj.point.x +', '+ f.obj.point.y +' )">center</a></span>\n'+
 		'<span class="fdel"><a onclick="canvas2d.remove_plot('+i+'); load_plots();">delete</a></span></p>\n'+
 		'<p class="clear"></p>\n'+
 		'</td>\n'+

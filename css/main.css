@@ -293,6 +293,9 @@ td{
 	height: 5px;
 }
 
+.fcenter{
+	margin-left: 1em;
+}
 #panel-functions{
 	left: 5px;
 }
