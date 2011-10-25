@@ -159,6 +159,8 @@ function Canvas2D( jsCvsLayer, view, setting ) {
 		this.functions = [];
 		this.plots = [];
 		this.canvas.emptyStack();
+		this.span_reset();
+		this.zoom_reset();
 		this.redraw();
 	}
 	

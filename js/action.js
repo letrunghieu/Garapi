@@ -57,6 +57,10 @@ $('#tb_options').click( function(){
 	}
 } )
 
+$('#tb_clear').click( function() {
+	canvas2d.reset();
+})
+
 $('#tb_zoom_in').click( function(){
 	canvas2d.zoom_in();
 } )
