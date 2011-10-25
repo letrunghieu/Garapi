@@ -44,6 +44,10 @@ td{
     -o-transition: background 0.2s linear 0s;
     padding: 3px;
 }
+textarea, input[type=text]{
+	font-family: Inconsolata;
+	font-size: 14px;
+}
 .left{
     text-align: left;
 }

@@ -25,7 +25,8 @@ $(document).ready(function(){
 //	// end init
 	canvas2d.add_plot( new Plot(1, 5, "A", "#f0f000", true, true));
 	load_plots();
-	canvas2d.redraw();
+	var t = setTimeout( "canvas2d.redraw()", 1000 );
+//canvas2d.redraw();
 	$('#dialog-func-info').css('width','500px');
 	$('#dialog-func-info').css('left', (window.innerWidth - 500) / 2);
 	$('#dialog-plot-info').css('width','400px');
@@ -250,16 +251,14 @@ function load_functions(){
 	for( i = 0; i < canvas2d.functions.length; i++ ) {
 		var f = canvas2d.functions[i];
 		var item_tr = document.createElement( 'tr' );
-		item_tr.innerHTML = '<tr>\n'+
-		'<td>'+i+'</td>\n'+
+		item_tr.innerHTML = '<td>'+i+'</td>\n'+
 		'<td style="text-align: left">\n'+
 		'<p><a onclick="edit_function('+i+')">'+f.obj.func_str+'</a></p>\n'+
 		'<p><span class="fcolor" style="background: '+f.obj.func_color+'"></span>\n'+
 		'<span class="fdel"><a onclick="canvas2d.remove_function('+i+'); load_functions();">delete</a></span></p>\n'+
 		'<p class="clear"></p>\n'+
 		'</td>\n'+
-		'<td><input type="checkbox" '+(f.visible?'checked="checked"':'')+'onclick="toggle_function_show('+i+', this.checked)"/></td>\n'+
-		'</tr>\n';
+		'<td><input type="checkbox" '+(f.visible?'checked="checked"':'')+'onclick="toggle_function_show('+i+', this.checked)"/></td>\n';
 		$('#panel-functions .panel-content tbody').append(item_tr);
 	}	
 }
@@ -331,16 +330,14 @@ function load_plots() {
 	for( i = 0; i < canvas2d.plots.length; i++ ) {
 		var f = canvas2d.plots[i];
 		var item_tr = document.createElement( 'tr' );
-		item_tr.innerHTML = '<tr>\n'+
-		'<td>'+f.obj.label+'</td>\n'+
+		item_tr.innerHTML = '<td>'+f.obj.label+'</td>\n'+
 		'<td style="text-align: left">\n'+
 		'<p><a onclick="show_plot_info( false, '+i+')">x:'+f.obj.point.x.toPrecision(6)+ ' | y:' + f.obj.point.y.toPrecision(6) +'</a></p>\n'+
 		'<p><span class="fcolor" style="background: '+f.obj.color+'"></span><span class="fcenter"><a onclick="canvas2d.center( '+ f.obj.point.x +', '+ f.obj.point.y +' )">center</a></span>\n'+
 		'<span class="fdel"><a onclick="canvas2d.remove_plot('+i+'); load_plots();">delete</a></span></p>\n'+
 		'<p class="clear"></p>\n'+
 		'</td>\n'+
-		'<td><input type="checkbox" '+(f.visible?'checked="checked"':'')+'onclick="toggle_plot_show('+i+', this.checked)"/></td>\n'+
-		'</tr>\n';
+		'<td><input type="checkbox" '+(f.visible?'checked="checked"':'')+'onclick="toggle_plot_show('+i+', this.checked)"/></td>\n';
 		$('#panel-plots .panel-content tbody').append(item_tr);
 	}	
 }
