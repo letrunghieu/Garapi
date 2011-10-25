@@ -367,7 +367,7 @@ function Canvas2D( jsCvsLayer, view, setting ) {
 	}
 	
 	this.center = function (x, y) {
-		this.view.center(x, y);
+		this.view.center(x, y, MyMath.round( this.canvas.width / 2 ), MyMath.round( this.canvas.height / 2) );
 		this.redraw();
 	}
 }

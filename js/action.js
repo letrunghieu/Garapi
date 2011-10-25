@@ -60,6 +60,8 @@ $('#tb_options').click( function(){
 
 $('#tb_clear').click( function() {
 	canvas2d.reset();
+	load_plots();
+	load_functions();
 })
 
 $('#tb_zoom_in').click( function(){
@@ -118,9 +120,11 @@ $('#tb_view_plots').click( function(){
 // panel bindgin
 $('#panel-functions .close-button').click( function(){
 	$('#panel-functions').css('display','none');
+	$('#tb_view_funcs').attr('title', 'Show function panel');
 } )
 $('#panel-plots .close-button').click( function(){
 	$('#panel-plots').css('display','none');
+	$('#tb_view_plots').attr('title', 'Show plot panel');
 } )
 
 $('#pb-funcs-add').click( function(){

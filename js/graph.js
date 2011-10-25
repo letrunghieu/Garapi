@@ -175,9 +175,9 @@ function View( setting, x, y ) {
 	/**
 	 * Centering the canvas at the given point of the Catersian Coord
 	 */
-	this.center = function( x, y ){
-		this.origin_coord.x = this.origin.x - x * this.space_x;
-		this.origin_coord.y = this.origin.y + y * this.space_y;
+	this.center = function( x, y, ori_x, ori_y ){
+		this.origin_coord.x = ori_x - x * this.space_x;
+		this.origin_coord.y = ori_y + y * this.space_y;
 	}
 }
 
