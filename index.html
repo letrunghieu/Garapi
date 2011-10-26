@@ -59,14 +59,131 @@
 					</header>
 					<section>
 						<div id="viewpoint">
-							<!--							<canvas id="graph">
-															Your browser does not support &lt;canvas&gt; element.
-														</canvas>-->
 							<div id="graph">
 							</div>
 						</div>
 						<div id="settings" class="overlay" style="display: none">
+							<div class="overlay-inner">
+								<div class="overlay-header">
+									<h3>Application Settings</h3>
+								</div>
+								<div id="settings-tabs" class="tab-box">
+									<ul>
+										<li><a id="settings-axis" class="tablink activelink">Axis</a></li>
+										<li><a id="settings-grid" class="tablink">Grid</a></li>
+										<li><a id="settings-milestone" class="tablink">Milestone</a></li>
+										<li><a id="settings-viewport" class="tablink">Viewport</a></li>
+										<li><a id="settings-advanced" class="tablink">Advanced</a></li>
+									</ul>
+								</div>
+								<div id="settings-content" class="overlay-content">
+									<div id="settings-axis-tab" class="tabcontent">
+										<table>
+											<tr>
+												<td style="text-align: right">Axis color</td>
+												<td><input type="text" class="dialog-text color" id="st-axis-color" size="6" maxlength="6" /></td>
+											</tr>
+											<tr>
+												<td style="text-align: right">X Unit length</td>
+												<td><input type="text" class="dialog-text" id="st-axis-length-x" size="6" /> pixel</td>
+											</tr>
+											<tr>
+												<td style="text-align: right">Y Unit length</td>
+												<td><input type="text" class="dialog-text" id="st-axis-length-y" size="6" /> pixel</td>
+											</tr>
 
+										</table>
+									</div>
+									<div id="settings-grid-tab" class="tabcontent hide">
+										<table>
+											<tr>
+												<td style="text-align: right">Grid major color</td>
+												<td><input type="text" class="dialog-text color" id="st-grid-major-color" size="6" maxlength="6" /></td>
+											</tr>
+											<tr>
+												<td style="text-align: right">Grid X space</td>
+												<td><input type="text" class="dialog-text" id="st-grid-major-space-x" size="6" /> unit</td>
+											</tr>
+											<tr>
+												<td style="text-align: right">Grid Y space</td>
+												<td><input type="text" class="dialog-text" id="st-grid-major-space-y" size="6" /> unit</td>
+											</tr>
+
+										</table>
+									</div>
+									<div id="settings-milestone-tab" class="tabcontent hide">
+										<table>
+											<tr>
+												<td style="text-align: right">Milestone color</td>
+												<td><input type="text" class="dialog-text color" id="st-milestone-color" size="6" maxlength="6" /></td>
+											</tr>
+											<tr>
+												<td style="text-align: right">Milestone X space</td>
+												<td><input type="text" class="dialog-text" id="st-milestone-space-x" size="6" /> major grids</td>
+											</tr>
+											<tr>
+												<td style="text-align: right">Milestone Y space</td>
+												<td><input type="text" class="dialog-text" id="st-milestone-space-y" size="6" /> major grids</td>
+											</tr>
+
+										</table>
+									</div>
+									<div id="settings-viewport-tab" class="tabcontent hide">
+										<p class="element">
+											<input type="checkbox" id="st-view-enable" /> Enable custom viewport
+										</p>
+										<table>
+											<tr>
+												<td>Min X</td>
+												<td><input type="text" class="dialog-text" id="st-view-min-x" size="6" /></td>
+												<td>Max X</td>
+												<td><input type="text" class="dialog-text" id="st-view-max-x" size="6" /></td>
+											</tr>
+											<tr>
+												<td>Min Y</td>
+												<td><input type="text" class="dialog-text" id="st-view-min-y" size="6" /></td>
+												<td>Max Y</td>
+												<td><input type="text" class="dialog-text" id="st-view-max-y" size="6" /></td>
+											</tr>
+										</table>
+										<p class="element">
+											<input type="checkbox" id="st-view-xyratio-enable" /> Set a fixed X:Y ration on viewport
+											<input type="text" class="dialog-text" id="st-view-xyratio" size="6" />
+										</p>
+									</div>
+									<div id="settings-advanced-tab" class="tabcontent hide">
+										<table>
+											<tr>
+												<td style="text-align: right">Default function color</td>
+												<td><input type="text" class="dialog-text color" id="st-adv-func-color" size="6" maxlength="6" /></td>
+											</tr>
+											<tr>
+												<td style="text-align: right">Default plot color</td>
+												<td><input type="text" class="dialog-text color" id="st-adv-plot-color" size="6" maxlength="6" /></td>
+											</tr>
+											<tr>
+												<td style="text-align: right">Zooming ration</td>
+												<td><input type="text" class="dialog-text" id="st-adv-zoom" size="6" /></td>
+											</tr>
+											<tr>
+												<td style="text-align: right">Spanning distance</td>
+												<td><input type="text" class="dialog-text" id="st-adv-span" size="6" /> pixel</td>
+											</tr>
+
+										</table>
+									</div>
+								</div>
+								<div id="settings-footer">
+									<ul>
+										<li><a id="settings-btn-apply" class="button">Apply</a></li>
+										<li><a id="settings-btn-cancel" class="button">Cancel</a></li>
+										<li><a id="settings-btn-default" class="button">App default</a></li>
+										<li><a id="settings-btn-sve" class="button">Save</a></li>
+									</ul>
+									<div class="clear"></div>
+								</div>
+								<div class="clear"></div>
+							</div>
 						</div>
 						<div id="about" class="overlay" style="display: none">
 
@@ -87,20 +204,6 @@
 										</tr>
 									</thead>
 									<tbody>
-										<!--										<tr>
-																					<td>1</td>
-																					<td style="text-align: left">
-																						<p>
-																							<a>sin(x)*x</a>
-																						</p>
-																						<p>
-																							<span class="fcolor" style="background: #3F7DA3"></span>
-																							<span class="fdel"><a onclick="canvas2d.remove_function(-1)">delete</a></span>
-																						</p>
-																						<p class="clear"></p>
-																					</td>
-																					<td><input type="checkbox" checked="checked" onclick="toggle_function_show(-1, this.checked)" /></td>
-																				</tr>-->
 									</tbody>
 								</table>
 							</div>
@@ -129,20 +232,6 @@
 										</tr>
 									</thead>
 									<tbody>
-<!--										<tr>
-											<td>1</td>
-											<td style="text-align: left">
-												<p>
-													<a>x:1.1200078 | y:72021099</a>
-												</p>
-												<p>
-													<span class="fcolor" style="background: #3F7DA3"></span>
-													<span class="fdel"><a onclick="canvas2d.remove_function(-1)">delete</a></span>
-												</p>
-												<p class="clear"></p>
-											</td>
-											<td><input type="checkbox" checked="checked" onclick="toggle_function_show(-1, this.checked)" /></td>
-										</tr>-->
 									</tbody>
 								</table>
 							</div>

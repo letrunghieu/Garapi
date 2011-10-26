@@ -17,6 +17,7 @@ var g_canvas_height = window.innerHeight - 72;		// The canvas height (in pixel)
 
 var g_grid_major_color = "#CCCCCC";
 var g_axis_color = "#1068BA";
+var g_milestone_color = "#1068BA";
 var g_function_default_color = "#000000";
 var g_plot_default_color = "#D64D4D";
 var g_zoom_base = 1.25;
@@ -40,6 +41,7 @@ var g_dialog_plot_info = "add" // "add": add new | id: edit the current id
 function Setting() {
 	this.grid_major_color = g_grid_major_color;
 	this.axis_color = g_axis_color;
+	this.milestone_color = g_milestone_color;
 	this.function_default_color = g_function_default_color;
 	this.plot_default_color = g_plot_default_color;
 	this.zoom_base = g_zoom_base;

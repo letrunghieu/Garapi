@@ -33,6 +33,7 @@ a{
     height: 0;
     overflow: hidden;
 }
+.hide { display: none;}
 table{
     border-collapse: collapse;
 }
@@ -85,6 +86,30 @@ textarea, input[type=text]{
 	position:absolute; top:0px; left:0px; width:100%; height:100%; color:#FFFFFF; text-align:center; vertical-align:middle;
 	/*      display: none;*/
 }
+.overlay-inner{
+	color: #474747;
+	margin: 5px auto;
+	text-align: left;
+	overflow: auto;
+	padding: 5px;
+}
+
+.overlay-content{
+	overflow: auto;
+	margin-bottom: 10px;
+}
+
+.overlay-inner td {
+	text-align: left;
+	padding: 6px;
+}
+
+.overlay-header {
+	border-bottom: 4px solid #f0f0f0;
+	margin-bottom: 1em;
+	padding: 0.3em;
+}
+
 
 #toolbar {
 	background: #EDEDED;
@@ -372,4 +397,69 @@ textarea, input[type=text]{
 .dialog-content textarea,
 .dialog-content select{
 	color: #474747;
+}
+
+
+/* Options dialog */
+
+.button{
+	display: block;
+	background: #575757;
+	border: 1px solid #cfcfcf;
+	border-radius: 8px;
+	padding: 3px 10px;
+	color: #fefefe;
+}
+
+#settings-footer ul{
+	padding: 0;
+	margin: 0;
+}
+
+#settings-footer ul li {
+	display: block;
+	float: right;
+	padding: 3px;
+}
+
+#settings .overlay-inner {
+	background: #fefefe;
+	width: 800px;
+}
+
+#settings-tabs{
+	border-right: 1px solid #f0f0f0;
+	width: 150px;
+	float: left;
+}
+#settings-content{
+	width: 630px;
+	float:right;
+}
+#settings-footer{
+	clear: both;
+}
+
+#settings-tabs ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+.tab-box a {
+	display: block;
+	color:#666666;
+	padding: 15px 0;
+	text-decoration:none;
+}
+.tab-box a.activeLink { 
+	border-bottom: 0; 
+}
+.tab-box a:hover {
+	background: #fbfbfb;
+}
+
+a.activelink{
+	color: #000000;
+	font-weight: bold;
 }

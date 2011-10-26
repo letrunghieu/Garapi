@@ -8,33 +8,38 @@
  * Actions
  */
 
+setting =  new Setting();
+view = new View( setting, MyMath.round(g_canvas_width / 2), MyMath.round(g_canvas_height / 2) );
+cvs = new JsCanvasLayer( 'graph', null, g_canvas_width, g_canvas_height );
+canvas2d = new Canvas2D( cvs, view, setting );
+	
 $(document).ready(function(){
 	$('#title h1').html('Garapi '+ g_version_name + ' | Open HTML visual graph (v' + g_version + ')');
 	document.title = 'Garapi '+ g_version_name + '(' + g_version + ')';
-	setting =  new Setting();
-	view = new View( setting, MyMath.round(g_canvas_width / 2), MyMath.round(g_canvas_height / 2) );
-	cvs = new JsCanvasLayer( 'graph', null, g_canvas_width, g_canvas_height );
-	canvas2d = new Canvas2D( cvs, view, setting );
-//	// init
-//	canvas2d.add_function( new Function( "(x*x)/2-3", "#B31227"));
-//	canvas2d.add_function( new Function( "(x*x)/2-x", "#B31227"));
-//	canvas2d.add_function( new Function( "sin(x)-x", "#2676B3"));
-//	canvas2d.add_function( new Function( "(x+x+x+x+x+x+x+x+x+x+x+x+x+x+x)/10", "#2676B3"));
-//	canvas2d.add_function( new Function( "sin(x)*x/2-1", "#32B366"));
-//	load_functions();
-//	// end init
-	canvas2d.add_plot( new Plot(1, 5, "A", "#f0f000", true, true));
-	load_plots();
 	var t = setTimeout( "canvas2d.redraw()", 1000 );
-//canvas2d.redraw();
 	$('#dialog-func-info').css('width','500px');
 	$('#dialog-func-info').css('left', (window.innerWidth - 500) / 2);
 	$('#dialog-plot-info').css('width','400px');
 	$('#dialog-plot-info').css('right', '270px');
 	$('#dialog-plot-info').css('top', '150px');
+	$('.overlay-content').each( function(intIndex){
+		$(this).css('max-height', (window.innerHeight -135) + "px");
+	} )
 	$('.panel-content').each( function(intIndex){
 		$(this).css('max-height', (window.innerHeight -160) + "px");
 	} );
+	
+	// tabs 
+	$(".tablink").each(function(){
+      $(this).click(function(){
+        tabeId = $(this).attr('id');
+        $(".tablink").each(function(){ $(this).removeClass("activelink"); } );
+        $(this).addClass("activelink");
+        $(".tabcontent").addClass("hide");
+        $("#"+tabeId+"-tab").removeClass("hide")   
+        return false;	  
+      });
+    }); 
 })
 $(window).resize( function() {
 	canvas2d.remeasure( window.innerWidth , window.innerHeight - 72 );

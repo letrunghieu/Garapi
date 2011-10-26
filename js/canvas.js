@@ -264,13 +264,13 @@ function Canvas2D( jsCvsLayer, view, setting ) {
 			if ( i == 0 ) {
 				origin_x = true;
 			}
-			draw_text(ctx, i, this.view.get_real_x_coord(i) + 2, milestone_y + 2, "14px Inconsolata", g_axis_color, true);
+			draw_text(ctx, i, this.view.get_real_x_coord(i) + 2, milestone_y + 2, "14px Inconsolata", this.setting.milestone_color, true);
 		}
 		for (i = min_y; i <= max_y; i = i + this.view.miles_space_y ) {
 			if ( i == 0 && origin_x ) {
 				continue;
 			}
-			draw_text(ctx, i, milestone_x - 2, this.view.get_real_y_coord(i) + 2, "14px Inconsolata", g_axis_color, true, "right");
+			draw_text(ctx, i, milestone_x - 2, this.view.get_real_y_coord(i) + 2, "14px Inconsolata", this.setting.milestone_color, true, "right");
 		}
 	
 		return true;
