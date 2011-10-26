@@ -19,4 +19,9 @@ This is my expected release plan:
 * 1.5 - 1.9: optimize code, fix bugs and improve the UI and UX.
 
 #About
+The project itself is released under [GNU Affero General Public License](http://www.gnu.org/licenses/agpl.html).
+
 For further information, feel free to contact me at letrunghieu.cse09@gmail.com or leave an issue in this project site. 
+
+#Demo
+The demo is now available at http://webtrunghieu.info/test/garapi
