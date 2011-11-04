@@ -9,6 +9,7 @@
  *   - version information
  */
 
+
 var g_version = '1.2';		// The version of Garapi
 var g_version_name = 'Chaos'	// The code name verion of Garapi
 var canvas2d = null;			// The main canvas of the application
@@ -35,9 +36,22 @@ var g_miles_space_y = 1;	// the number of horz. grid for each milestone
 var g_dialog_func_info = "add" // "add": add new | id: edit the current id
 var g_dialog_plot_info = "add" // "add": add new | id: edit the current id
 
+var g_viewport = null;
+
 /**
  * The Setting class
  */
+function ViewPort( x1, y1, x2, y2, scale){
+	if ( scale == null ){
+		scale = false;
+	}
+	this.x1 = x1;
+	this.x2 = x2;
+	this.y1 = y1;
+	this.y2 = y2;
+	this.scale = scale;
+}
+	
 function Setting() {
 	this.grid_major_color = g_grid_major_color;
 	this.axis_color = g_axis_color;
@@ -53,6 +67,7 @@ function Setting() {
 	this.grid_space_y = g_grid_space_y;
 	this.miles_space_x = g_miles_space_x;
 	this.miles_space_y = g_miles_space_y;
+	this.viewport = g_viewport;
 }
 
 /**

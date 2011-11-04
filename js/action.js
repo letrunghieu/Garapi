@@ -31,15 +31,19 @@ $(document).ready(function(){
 	
 	// tabs 
 	$(".tablink").each(function(){
-      $(this).click(function(){
-        tabeId = $(this).attr('id');
-        $(".tablink").each(function(){ $(this).removeClass("activelink"); } );
-        $(this).addClass("activelink");
-        $(".tabcontent").addClass("hide");
-        $("#"+tabeId+"-tab").removeClass("hide")   
-        return false;	  
-      });
-    }); 
+		$(this).click(function(){
+			tabeId = $(this).attr('id');
+			$(".tablink").each(function(){
+				$(this).removeClass("activelink");
+			} );
+			$(this).addClass("activelink");
+			$(".tabcontent").addClass("hide");
+			$("#"+tabeId+"-tab").removeClass("hide")   
+			return false;	  
+		});
+	}); 
+	
+	update_settings(setting);
 })
 $(window).resize( function() {
 	canvas2d.remeasure( window.innerWidth , window.innerHeight - 72 );
@@ -357,5 +361,30 @@ function toggle_plot_show( id, show ){
 	} else {
 		canvas2d.hide_plot( id );
 	}
+}
+
+function update_settings( setting ){
+	$('#st-axis-color').val(setting.axis_color);
+	$('#st-axis-length-x').val(setting.space_x);
+	$('#st-axis-length-y').val(setting.space_y);
+	$('#st-grid-major-color').val(setting.grid_major_color);
+	$('#st-grid-major-space-x').val(setting.grid_space_x);
+	$('#st-grid-major-space-y').val(setting.grid_space_y);
+	$('#st-milestone-color').val(setting.milestone_color);
+	$('#st-milestone-space-x').val(setting.miles_space_x);
+	$('#st-milestone-space-y').val(setting.miles_space_y);
+	$('#st-view-enable').attr('checked', setting.viewport != null);
+	if ( setting.viewport == null ){
+		$('#st-view-min-x').attr('disabled', true);
+		$('#st-view-min-y').attr('disabled', true);
+		$('#st-view-max-x').attr('disabled', true);
+		$('#st-view-max-y').attr('disabled', true);
+		$('#st-view-xyratio').attr('disabled', true);
+		$('#st-view-xyratio-enable').attr('disabled', true);
+	}
+	$('#st-adv-function-color').val(setting.function_default_color);
+	$('#st-adv-plot-color').val(setting.plot_default_color);
+	$('#st-adv-zoom').val(setting.zoom_base);
+	$('#st-adv-span').val(setting.span_base);
 }
 // end write functions

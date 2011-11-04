@@ -25,7 +25,6 @@ function draw_text ( context, string, x, y, font, fillStyle, fill, align, baseli
 	}
 }
 	
-	
 function Element( type, obj, layer ){
 	this.visible = true;
 	this.type = type;

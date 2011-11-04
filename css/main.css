@@ -374,6 +374,9 @@ textarea, input[type=text]{
 	background: #fefefe;
 	padding:5px;
 }
+.dialog-text[disabled=disabled]{
+	background: #fcfcfc;
+}
 .dialog-text:focus{
 	background: #ffffff;
 	border-color: #e0e0e0;
