@@ -58,6 +58,7 @@ $('#action').click( function(){
 // toolbar binding
 $('#tb_options').click( function(){
 	clicker("settings");
+	update_settings( setting );
 	if( $(this).html() == "Options" ){
 		$(this).html( "&nbsp;Graph&nbsp;" );
 		$(this).css( "font-weight", "bold" );
@@ -257,6 +258,28 @@ $('#pb-plots-txt-x').change( function(){
 } )
 // end panel binding
 
+// setting dialog
+$('#settings-btn-cancel').click( function(){
+	clicker("settings");
+	
+	$('#tb_options').html( "Options" );
+	$('#tb_options').css( "font-weight", "normal" )
+} )
+
+$('#settings-btn-apply').click( function(){
+	apply_settings( setting );
+	canvas2d.view.update_setting( setting );
+	clicker("settings");
+	canvas2d.redraw();
+} );
+$('#settings-btn-default').click( function(){
+	setting = new Setting();
+	canvas2d.update_setting( setting );
+	clicker("settings");
+	canvas2d.redraw();
+} )
+// end setting dialog
+
 // write functions
 function load_functions(){
 	$('#panel-functions .panel-content tbody').html('');
@@ -364,13 +387,13 @@ function toggle_plot_show( id, show ){
 }
 
 function update_settings( setting ){
-	$('#st-axis-color').val(setting.axis_color);
+	$('#st-axis-color').val(setting.axis_color.substr( 1, 6) );
 	$('#st-axis-length-x').val(setting.space_x);
 	$('#st-axis-length-y').val(setting.space_y);
-	$('#st-grid-major-color').val(setting.grid_major_color);
+	$('#st-grid-major-color').val(setting.grid_major_color.substr( 1, 6 ) );
 	$('#st-grid-major-space-x').val(setting.grid_space_x);
 	$('#st-grid-major-space-y').val(setting.grid_space_y);
-	$('#st-milestone-color').val(setting.milestone_color);
+	$('#st-milestone-color').val(setting.milestone_color.substr( 1, 6 ) );
 	$('#st-milestone-space-x').val(setting.miles_space_x);
 	$('#st-milestone-space-y').val(setting.miles_space_y);
 	$('#st-view-enable').attr('checked', setting.viewport != null);
@@ -382,9 +405,40 @@ function update_settings( setting ){
 		$('#st-view-xyratio').attr('disabled', true);
 		$('#st-view-xyratio-enable').attr('disabled', true);
 	}
-	$('#st-adv-function-color').val(setting.function_default_color);
-	$('#st-adv-plot-color').val(setting.plot_default_color);
+	$('#st-adv-function-color').val(setting.function_default_color.substr( 1, 6 ) );
+	$('#st-adv-plot-color').val(setting.plot_default_color.substr( 1, 6 ) );
 	$('#st-adv-zoom').val(setting.zoom_base);
 	$('#st-adv-span').val(setting.span_base);
 }
+
+function apply_settings( setting ){
+	setting.axis_color = '#' + $('#st-axis-color').val();
+	setting.space_x = parseInt( $('#st-axis-length-x').val() );
+	setting.space_y = parseInt( $('#st-axis-length-y').val() );
+	setting.grid_major_color = '#' + $('#st-grid-major-color').val();
+	setting.grid_space_x = parseFloat( $('#st-grid-major-space-x').val() );
+	setting.grid_space_y = parseFloat( $('#st-grid-major-space-y').val() );
+	setting.milestone_color = '#' + $('#st-milestone-color').val();
+	setting.miles_space_x = parseFloat( $('#st-milestone-space-x').val() );
+	setting.miles_space_y = parseFloat( $('#st-milestone-space-y').val() );
+	$('#st-view-enable').attr('checked', setting.viewport != null);
+	if ( setting.viewport == null ){
+		$('#st-view-min-x').attr('disabled', true);
+		$('#st-view-min-y').attr('disabled', true);
+		$('#st-view-max-x').attr('disabled', true);
+		$('#st-view-max-y').attr('disabled', true);
+		$('#st-view-xyratio').attr('disabled', true);
+		$('#st-view-xyratio-enable').attr('disabled', true);
+	}
+	setting.function_default_color = '#' + $('#st-adv-function-color').val();
+	setting.plot_default_color = '#' + $('#st-adv-plot-color').val();
+	setting.zoom_base = parseFloat( $('#st-adv-zoom').val() );
+	setting.span_base = parseFloat( $('#st-adv-span').val() );
+}
+
+function reset_setting(){
+	setting = new Setting();
+}
+
+
 // end write functions

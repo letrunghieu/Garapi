@@ -147,6 +147,7 @@ function Canvas2D( jsCvsLayer, view, setting ) {
 	
 	this.update_setting = function( setting ) {
 		this.setting = setting;
+		this.view.update_setting( setting );
 	}
 	
 	
