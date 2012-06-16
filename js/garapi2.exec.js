@@ -10,9 +10,11 @@ $(document).ready(function(){
 	
 	// get the controller the use later
 	appCtrl = Garapi.mainView.get('controller');
+	appCtrl.bgCanvas.set('width', window.innerWidth - 10) ;
+	appCtrl.bgCanvas.set('height', window.innerHeight - 10);
 	appCtrl.originCoord = {
-		x: appCtrl.bgCanvas.width / 2,
-		y: appCtrl.bgCanvas.height / 2
+		x: Garapi.round(appCtrl.bgCanvas.width / 2),
+		y: Garapi.round(appCtrl.bgCanvas.height / 2)
 	}
 	appCtrl.addEquation = function(){
 		var newId = ++Garapi.Equation.nItem;
@@ -21,10 +23,18 @@ $(document).ready(function(){
 			canvas: Garapi.Canvas.create({
 				id: newId,
 				widthBinding: 'Garapi.mainView.controller.bgCanvas.width',
-				heightBinding: 'Garapi.mainView.controller.bgCanvas.height'
+				heightBinding: 'Garapi.mainView.controller.bgCanvas.height',
+				offsetBinding: 'Garapi.mainView.controller.bgCanvas.offset'
 			})
 		})
 		appCtrl.equaCtrl.pushObject(eq);
 	}
+	
+	
+})
+
+$(window).resize(function(){
+	appCtrl.resize(false);
+	// appCtrl.redrawBackground();
 })
 /* End of garapi2.exec.js */

@@ -8,11 +8,18 @@
 		<link rel="stylesheet" href="css/mathquill.css" />
 		<link rel="stylesheet" href="css/compiled/main.css" />
 		<script src="js/jquery-1.7.2.min.js"></script>
+		<script src="js/jquery.mousewheel.js"></script>
 		<script src="js/ember-0.9.8.1.min.js"></script>
 		<script src="js/mathquill.js"></script>
 		
 		<script type="text/x-handlebars" data-template-name="main-view">
 			<div id="canvas-area">
+				{{view Garapi.GraphView contentBinding="this"}}
+			</div>
+		</script>
+		
+		<script type="text/x-handlebars" data-template-name="graph-view">		
+			{{#with content}}
 				{{#with controller.bgCanvas}}
 					{{#if isVisible}}
 						<canvas {{bindAttr width="width"}} {{bindAttr height="height"}} {{bindAttr id="htmlId"}}></canvas>
@@ -21,7 +28,7 @@
 				{{#each controller.equaCtrl}}
 					<canvas {{bindAttr width="canvas.width"}} {{bindAttr height="canvas.height"}} {{bindAttr id="canvas.htmlId"}}></canvas>
 				{{/each}}
-			</div>
+			{{/with}}
 		</script>
 	</head>
 	<body>

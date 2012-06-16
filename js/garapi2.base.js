@@ -8,6 +8,14 @@
 /* The Garapi 2 namespace */
 window.Garapi = Ember.Application.create()
 
+Garapi.round = function(val){
+	return ~~(val + (val > 0 ? .5 : -.5));
+}
+
+Garapi.ceil = function(val){
+	return (val | 0) + (val > 0? 1: 0);
+}
+
 /*---------------------------------------------------------------------------*
  * The application info
 /*---------------------------------------------------------------------------*/
@@ -15,7 +23,26 @@ Garapi.info = Ember.Object.create({
 	name: 'Garapi 2',
 	version: '2.0.1',
 	description: 'The open source online graph editor with HTML and Javascript',
-	updated: '2012/06/12'	// The reslease day Y/m/d
+	updated: '2012/06/12',	// The reslease day Y/m/d
+	zoomFactor: 1.1,
+	grid: {
+		nMiror: 4,
+		maxXGapMiror: 60,
+		maxYGapMiror: 60,
+		sXGapMiror: 40,
+		sYGapMiror: 40,
+		minXGapMiror: 20,
+		minYGapMiror: 20
+	},
+	color: {
+		mirorGrid: "#E7EEF5",
+		majorGrid: "#DDE0E2",
+		axes: "#788898"
+	},
+	labelSpace:{
+		x: 7.5,
+		y: 7.5
+	}
 })
 
 
@@ -36,12 +63,48 @@ Garapi.Canvas = Ember.Object.extend({
 	isVisible: true,
 	width: 0,
 	height: 0,
+	centerCoord: {
+		x: 0,
+		y: 0
+	}, // the center of the canvas, updated only when the canvas change its dimension
+	offset: {
+		top: 0,
+		left: 0
+	},
 	htmlId: function(){
 		return 'canvas_' + this.get('id');
 	}.property('id'),
 	zIndex: function(){
 		return 90 + 3 * this.get('id');
-	}.property()
+	}.property(),
+	canvasObject: function(){
+		return $("#" + this.get('htmlId'))[0];
+	},
+	canvas2DContext: null,
+	getContext: function(){
+		if (this.canvas2DContext == null)
+			this.set('canvas2DContext', this.canvasObject().getContext("2d"));
+		return this.canvas2DContext;
+	},
+	refreshContext: function(){
+		this.set('canvas2DContext', this.canvasObject().getContext("2d"));
+	},
+	clear: function(){
+		if(this.canvas2DContext != null)
+			this.canvas2DContext.clearRect(0, 0, this.width, this.height);
+	},
+	widthChanged: function(){
+		this.set('centerCoord', {
+			x: Garapi.round(this.width / 2),
+			y: this.centerCoord.y
+		});
+	}.observes('width'),
+	heightChanged: function(){
+		this.set('centerCoord', {
+			x: this.centerCoord.x ,
+			y: Garapi.round(this.height / 2)
+		});
+	}.observes('height')
 })
 
 
@@ -49,17 +112,17 @@ Garapi.Canvas = Ember.Object.extend({
  * The setting class 
 /*---------------------------------------------------------------------------*/
 Garapi.Setting = Ember.Object.extend({
-	showGrid: true,
-	showAxes: true,
-	showLabel: true,
-	piModeX: false,
-	piModeY: false,
+	isShowGrid: true,
+	isShowAxes: true,
+	isShowLabel: true,
+	isPiModeX: false,
+	isPiModeY: false,
 	equalXYScale: true,
 	minX: -5,
 	maxX: 5,
 	minY: -5,
 	maxY: 5,
-	fontsizeLable: 14,
+	fontsizeLabel: 14,
 	lineThick: 2,
 	labelGapX: function(){
 		var min = this.get('minX');
@@ -70,7 +133,11 @@ Garapi.Setting = Ember.Object.extend({
 		var min = this.get('minY');
 		var max = this.get('maxY');
 		return (min + max) / 10;
-	}.property('minY', 'maxY')
+	}.property('minY', 'maxY'),
+	mirorUnit: {
+		x: 0.5,
+		y: 0.5
+	}
 })
 
 
