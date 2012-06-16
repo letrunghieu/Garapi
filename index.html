@@ -2,11 +2,35 @@
 <html>
 	<head>
 		<title>Garapi 2 version 2.0.1</title>
+		<style>
+			
+		</style>
 		<link rel="stylesheet" href="css/mathquill.css" />
+		<link rel="stylesheet" href="css/compiled/main.css" />
 		<script src="js/jquery-1.7.2.min.js"></script>
 		<script src="js/ember-0.9.8.1.min.js"></script>
 		<script src="js/mathquill.js"></script>
+		
+		<script type="text/x-handlebars" data-template-name="main-view">
+			<div id="canvas-area">
+				{{#with controller.bgCanvas}}
+					{{#if isVisible}}
+						<canvas {{bindAttr width="width"}} {{bindAttr height="height"}} {{bindAttr id="htmlId"}}></canvas>
+					{{/if}}
+				{{/with}}
+				{{#each controller.equaCtrl}}
+					<canvas {{bindAttr width="canvas.width"}} {{bindAttr height="canvas.height"}} {{bindAttr id="canvas.htmlId"}}></canvas>
+				{{/each}}
+			</div>
+		</script>
 	</head>
 	<body>
+		<div id="container">
+			
+		</div>
+		<script src="js/garapi2.base.js"></script>
+		<script src="js/garapi2.controller.js"></script>
+		<script src="js/garapi2.view.js"></script>
+		<script src="js/garapi2.exec.js"></script>
 	</body>
 </html>

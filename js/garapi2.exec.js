@@ -1,0 +1,30 @@
+/**
+ * The last executed script file of Garapi 2. It defines all actions executed
+ * on window load as well as bind the event handllers
+ * Author: Hieu Le Trung (letrunghieu.cse09@gmail.com)
+ * Date created: June 15th, 2012
+ */
+
+$(document).ready(function(){
+	Garapi.mainView = Garapi.MainView.create().appendTo("#container");
+	
+	// get the controller the use later
+	appCtrl = Garapi.mainView.get('controller');
+	appCtrl.originCoord = {
+		x: appCtrl.bgCanvas.width / 2,
+		y: appCtrl.bgCanvas.height / 2
+	}
+	appCtrl.addEquation = function(){
+		var newId = ++Garapi.Equation.nItem;
+		var eq = Garapi.Equation.create({
+			id: newId,
+			canvas: Garapi.Canvas.create({
+				id: newId,
+				widthBinding: 'Garapi.mainView.controller.bgCanvas.width',
+				heightBinding: 'Garapi.mainView.controller.bgCanvas.height'
+			})
+		})
+		appCtrl.equaCtrl.pushObject(eq);
+	}
+})
+/* End of garapi2.exec.js */
