@@ -1,4 +1,4 @@
-/******************************************************************************/
+﻿/******************************************************************************/
 /*                GARAPI - THE VISUAL HTML GRAPH EDITOR                       */
 /*                   Author:         Hieu Le Trung                            */
 /*          License: GNU Affero General Public License version 3              */

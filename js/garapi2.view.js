@@ -1,4 +1,4 @@
-/**
+﻿/**
  * View classes that are used in Garapi 2
  * Author: Hieu Le Trung (letrunghieu.cse09@gmail.com)
  * Date created: June 15th, 2012
@@ -9,7 +9,22 @@
 /*---------------------------------------------------------------------------*/
 Garapi.MainView = Ember.View.extend({
 	templateName: 'main-view',
-	controller: Garapi.AppController.create()
+	controller: Garapi.AppController.create(),
+	hideSidebar: function(){
+		this.controller.set('isShowSidebar', false);
+	},
+	showSidebar: function(){
+		this.controller.set('isShowSidebar', true);
+	},
+	zoomIn: function(){
+		this.controller.zoom(false, this.controller.bgCanvas.centerCoord.x, this.controller.bgCanvas.centerCoord.y);
+	},
+	zoomOut: function(){
+		this.controller.zoom(true, this.controller.bgCanvas.centerCoord.x, this.controller.bgCanvas.centerCoord.y);
+	},
+	reset: function(){
+		this.controller.reset();
+	}
 })
 
 Garapi.GraphView = Ember.View.extend({
@@ -43,7 +58,10 @@ Garapi.GraphView = Ember.View.extend({
 		$('#canvas-area').mousewheel(function(event, delta, deltaX, deltaY){
 			// console.log(delta);
 			v.controller.zoom(delta < 0, event.pageX, event.pageY)
-		})
+		});
+		$('a, button').tooltip({
+			placement: 'bottom'
+		});
 		v.controller.bgCanvas.set('offset', {
 			top: v.controller.bgCanvas.canvasObject().offsetTop,
 			left: v.controller.bgCanvas.canvasObject().offsetLeft,
@@ -55,4 +73,12 @@ Garapi.GraphView = Ember.View.extend({
 		
 		v.controller.drawBackground();
 	}
+})
+
+Garapi.SidebarView = Ember.View.extend({
+	templateName: 'sidebar-view',
+	heightBinding: '._parentView.controller.bgCanvas.height',
+	cssStyle: function(){
+		return "height: " + (this.get('height') + 2)+ "px; width: " + (Garapi.info.sidebar.width - 11) + "px";
+	}.property('height')
 })

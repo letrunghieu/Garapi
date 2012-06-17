@@ -1,0 +1,15 @@
+﻿/* The vertical button group patch for bootstrap with LESS
+ * Thanks to: aaronadamsTO (https://github.com/aaronadamsTO)
+ */
+
+
+.btn-group-vertical{display:block; margin-right: 5px;}
+.btn-group-vertical+.btn-group-vertical{margin-top:5px;}
+.btn-group-vertical .btn{display:block;width:100%;margin-top:-1px;padding-right:5px;padding-left:5px;padding-top:5px;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;}
+.btn-group-vertical .btn.btn-large{padding-top:10px;}
+.btn-group-vertical .btn:first-child{margin-top:0;-webkit-border-top-left-radius:4px;-moz-border-radius-topleft:4px;border-top-left-radius:4px;-webkit-border-top-right-radius:4px;-moz-border-radius-topright:4px;border-top-right-radius:4px;}
+.btn-group-vertical .btn:last-child,.btn-group-vertical .dropdown-toggle{-webkit-border-bottom-left-radius:4px;-moz-border-radius-bottomleft:4px;border-bottom-left-radius:4px;-webkit-border-bottom-right-radius:4px;-moz-border-radius-bottomright:4px;border-bottom-right-radius:4px;}
+.btn-group-vertical .btn.large:first-child{margin-top:0;-webkit-border-top-left-radius:6px;-moz-border-radius-topleft:6px;border-top-left-radius:6px;-webkit-border-top-right-radius:6px;-moz-border-radius-topright:6px;border-top-right-radius:6px;}
+.btn-group-vertical .btn.large:last-child,.btn-group-vertical .large.dropdown-toggle{-webkit-border-bottom-left-radius:6px;-moz-border-radius-bottomleft:6px;border-bottom-left-radius:6px;-webkit-border-bottom-right-radius:6px;-moz-border-radius-bottomright:6px;border-bottom-right-radius:6px;}
+.btn-group-vertical .btn:hover,.btn-group-vertical .btn:focus,.btn-group-vertical .btn:active,.btn-group-vertical .btn.active{z-index:2;}
+.btn-group-vertical .dropdown-toggle:active,.btn-group-vertical.open .dropdown-toggle{outline:0;}

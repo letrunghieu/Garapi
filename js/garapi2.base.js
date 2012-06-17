@@ -16,6 +16,39 @@ Garapi.ceil = function(val){
 	return (val | 0) + (val > 0? 1: 0);
 }
 
+/* trace the change of the miror unit */ 
+Garapi.MirorUnit = Ember.Object.extend({
+	base: 0.1,
+	scaleIndex: 1,	// zero-based of Garapi.MirorUnit.scale array
+	value: function(){
+		return this.base * Garapi.MirorUnit.scale[this.scaleIndex];
+	}.property('base', 'scaleIndex'), //may be imprecision when multiple to 3, e.g. 0.15000000000000002
+	multiple: function(n) {
+		return n * Garapi.MirorUnit.scale[this.scaleIndex] * this.base;
+	}, // the hack to avoid the imprecision
+	next: function(){
+		if (this.scaleIndex == Garapi.MirorUnit.scale.length - 1){
+			this.set('base', this.base * 10);
+			this.set('scaleIndex', 0);
+		}
+		else {
+			this.set('scaleIndex', this.scaleIndex + 1);
+		}
+		return this;
+	},
+	previous: function(){
+		if (this.scaleIndex == 0){
+			this.set('base', this.base / 10);
+			this.set('scaleIndex', Garapi.MirorUnit.scale.length - 1);
+		}
+		else {
+			this.set('scaleIndex', this.scaleIndex - 1);
+		}
+		return this;
+	}
+})
+Garapi.MirorUnit.scale = [1, 2, 4];
+
 /*---------------------------------------------------------------------------*
  * The application info
 /*---------------------------------------------------------------------------*/
@@ -26,11 +59,11 @@ Garapi.info = Ember.Object.create({
 	updated: '2012/06/12',	// The reslease day Y/m/d
 	zoomFactor: 1.1,
 	grid: {
-		nMiror: 4,
-		maxXGapMiror: 60,
-		maxYGapMiror: 60,
-		sXGapMiror: 40,
-		sYGapMiror: 40,
+		nMiror: 5,
+		maxXGapMiror: 50,
+		maxYGapMiror: 50,
+		sXGapMiror: 30,
+		sYGapMiror: 30,
 		minXGapMiror: 20,
 		minYGapMiror: 20
 	},
@@ -42,6 +75,13 @@ Garapi.info = Ember.Object.create({
 	labelSpace:{
 		x: 7.5,
 		y: 7.5
+	},
+	sidebar: {
+		width: 300
+	},
+	dimension: {
+		canvasDeltaY: 10,
+		canvasDeltaX: 10
 	}
 })
 
@@ -50,8 +90,20 @@ Garapi.info = Ember.Object.create({
  * The language class 
 /*---------------------------------------------------------------------------*/
 Garapi.Language = Ember.Object.extend({
-	code: ''
-	//TODO add more placeholders
+	code: 'Vi',
+	NEW_FUNC: 'Thêm hàm số',
+	SETTING: 'Cấu hình',
+	HIDE_SIDEBAR: 'Ẩn',
+	SHOW_SIDEBAR: 'Hiện',
+	ZOOM_IN: 'Phóng to',
+	ZOOM_OUT: 'Thu nhỏ',
+	ZOOM_RESET: 'Zoom mặc định',
+	
+	TITLE_SHOW_SIDEBAR: 'Hiển thị sidebar',
+	TITLE_HIDE_SIDEBAR: 'Ẩn sidebar',
+	TITLE_LANG_CHOOSE: 'Chọn ngôn ngữ / Choose language',
+	TITLE_NEW_FUNC: 'Thêm hàm số mới',
+	TITLE_SETTING: 'Cấu hình cho chương trình'
 })
 
 
@@ -135,8 +187,8 @@ Garapi.Setting = Ember.Object.extend({
 		return (min + max) / 10;
 	}.property('minY', 'maxY'),
 	mirorUnit: {
-		x: 0.5,
-		y: 0.5
+		x: Garapi.MirorUnit.create(),
+		y: Garapi.MirorUnit.create()
 	}
 })
 

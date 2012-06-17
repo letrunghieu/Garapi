@@ -1,21 +1,52 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 	<head>
 		<title>Garapi 2 version 2.0.1</title>
 		<style>
 			
 		</style>
+		<link rel="stylesheet" href="libs/bootstrap/css/bootstrap-modded.css" />
 		<link rel="stylesheet" href="css/mathquill.css" />
 		<link rel="stylesheet" href="css/compiled/main.css" />
 		<script src="js/jquery-1.7.2.min.js"></script>
 		<script src="js/jquery.mousewheel.js"></script>
 		<script src="js/ember-0.9.8.1.min.js"></script>
 		<script src="js/mathquill.js"></script>
+		<script src="libs/bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" href="css/vertical.btn.LESS.css" />
 		
 		<script type="text/x-handlebars" data-template-name="main-view">
+			<div id="sidebar" {{bindAttr class="controller.isHideSidebar:hide"}}>
+				{{view Garapi.SidebarView contentBinding="controller"}}
+			</div>	
 			<div id="canvas-area">
 				{{view Garapi.GraphView contentBinding="this"}}
+				<div id="show-sidebar" {{bindAttr class="controller.isHideSidebar:show"}}>
+					<div class="btn-group dropdown language-chooser">
+						<button class="btn" {{bindAttr title="Garapi.language.TITLE_LANG_CHOOSE"}}>{{Garapi.language.code}}</button>
+						<button class="btn dropdown-toggle" data-toggle="dropdown">
+						<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu pull-right">
+							<li><a>Vietnamese</a></li>
+							<li><a>English</a></li>
+						</ul>
+					</div>
+					<a class="btn" {{action "showSidebar"}}  {{bindAttr title="Garapi.language.TITLE_SHOW_SIDEBAR"}}>{{Garapi.language.SHOW_SIDEBAR}}</a>
+				</div>
+				<div class="btn-group-vertical" id="zoom-buttons" {{bindAttr style="controller.zoomStyle"}}>
+				  <a class="btn" id="zoom-in" {{action "zoomIn"}} {{bindAttr title="Garapi.language.ZOOM_IN"}}>
+					<img src="imgs/icon_zoom_in.png" {{bindAttr alt="Garapi.language.ZOOM_IN"}}/>
+				  </a>
+				  <a class="btn" id="zoom-reset" {{action "reset"}} {{bindAttr title="Garapi.language.ZOOM_RESET"}}>
+					<img src="imgs/icon_zoom_reset.png" {{bindAttr alt="Garapi.language.ZOOM_RESET"}} />
+				  </a>
+				  <a class="btn" id="zoom-out" {{action "zoomOut"}} {{bindAttr title="Garapi.language.ZOOM_OUT"}}>
+					<img src="imgs/icon_zoom_out.png" {{bindAttr alt="Garapi.language.ZOOM_OUT"}} />
+				  </a>
+				</div>
 			</div>
+			
 		</script>
 		
 		<script type="text/x-handlebars" data-template-name="graph-view">		
@@ -29,6 +60,34 @@
 					<canvas {{bindAttr width="canvas.width"}} {{bindAttr height="canvas.height"}} {{bindAttr id="canvas.htmlId"}}></canvas>
 				{{/each}}
 			{{/with}}
+		</script>
+		<script type="text/x-handlebars" data-template-name="sidebar-view">
+			<div {{bindAttr style="cssStyle"}}>
+				<div id="main-buttons">
+					<div class="btn-group dropdown language-chooser">
+						<button class="btn"  {{bindAttr title="Garapi.language.TITLE_LANG_CHOOSE"}}>{{Garapi.language.code}}</button>
+						<button class="btn dropdown-toggle" data-toggle="dropdown">
+						<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a>Tiếng Việt</a></li>
+							<li><a>English</a></li>
+						</ul>
+					</div>
+					<a class="btn btn-primary" {{bindAttr title="Garapi.language.TITLE_NEW_FUNC"}}>{{Garapi.language.NEW_FUNC}}</a>
+					<a class="btn"  {{bindAttr title="Garapi.language.TITLE_SETTING"}}>{{Garapi.language.SETTING}}</a>
+					<a class="btn" {{action "hideSidebar" target="parentView"}}  {{bindAttr title="Garapi.language.TITLE_HIDE_SIDEBAR"}}>{{Garapi.language.HIDE_SIDEBAR}}</a>
+				</div>
+				<div id="header">
+					
+					<h1>
+						<img id="logo" src="imgs/logo2.png" alt="Garapi 2 - the open source online graph editor" />
+					</h1>
+					<div class="clearfix"></div>
+				</div>
+				{{#with content}}
+				{{/with}}
+			</div>
 		</script>
 	</head>
 	<body>

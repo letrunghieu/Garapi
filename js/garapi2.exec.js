@@ -1,4 +1,4 @@
-/**
+﻿/**
  * The last executed script file of Garapi 2. It defines all actions executed
  * on window load as well as bind the event handllers
  * Author: Hieu Le Trung (letrunghieu.cse09@gmail.com)
@@ -6,12 +6,13 @@
  */
 
 $(document).ready(function(){
+	Garapi.language = Garapi.Language.create();
 	Garapi.mainView = Garapi.MainView.create().appendTo("#container");
 	
 	// get the controller the use later
 	appCtrl = Garapi.mainView.get('controller');
-	appCtrl.bgCanvas.set('width', window.innerWidth - 10) ;
-	appCtrl.bgCanvas.set('height', window.innerHeight - 10);
+	appCtrl.bgCanvas.set('width', window.innerWidth - Garapi.info.sidebar.width) ;
+	appCtrl.bgCanvas.set('height', window.innerHeight - Garapi.info.dimension.canvasDeltaY);
 	appCtrl.originCoord = {
 		x: Garapi.round(appCtrl.bgCanvas.width / 2),
 		y: Garapi.round(appCtrl.bgCanvas.height / 2)
@@ -34,7 +35,7 @@ $(document).ready(function(){
 })
 
 $(window).resize(function(){
-	appCtrl.resize(false);
+	appCtrl.resize();
 	// appCtrl.redrawBackground();
 })
 /* End of garapi2.exec.js */

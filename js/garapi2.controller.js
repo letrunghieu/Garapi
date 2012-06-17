@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Controller classes that are used in Garapi 2
  * Author: Hieu Le Trung (letrunghieu.cse09@gmail.com)
  * Date created: June 15th, 2012
@@ -33,6 +33,10 @@ Garapi.AppController = Ember.Object.extend({
 		x: 0,
 		y: 0
 	},
+	isShowSidebar: true, // the sidebar is shown or not?
+	isHideSidebar: function(){
+		return !this.isShowSidebar;
+	}.property('isShowSidebar'),
 	drawBackground: function(){
 		var st = this.get('setting');
 		// var ctx = this.bgCanvas.canvasObject().getContext("2d");
@@ -49,7 +53,7 @@ Garapi.AppController = Ember.Object.extend({
 			if (this.originCoord.x <= this.bgCanvas.width){
 				maxStep = (this.bgCanvas.width - this.originCoord.x) / stepX;
 				for (i = 1; i <= maxStep; i++){
-					if (i % 4 != 0){
+					if (i % Garapi.info.grid.nMiror != 0){
 						v = this.originCoord.x + i * stepX + 0.5;
 						drawVLine(ctx, v, this.bgCanvas.height);
 					}
@@ -58,7 +62,7 @@ Garapi.AppController = Ember.Object.extend({
 			if (this.originCoord.x >= 0){
 				maxStep = this.originCoord.x / stepX;
 				for (i = 1; i <= maxStep; i++){
-					if (i % 4 != 0){
+					if (i % Garapi.info.grid.nMiror != 0){
 						v = this.originCoord.x - i * stepX + 0.5;
 						drawVLine(ctx, v, this.bgCanvas.height);
 					}
@@ -68,7 +72,7 @@ Garapi.AppController = Ember.Object.extend({
 			if (this.originCoord.y <= this.bgCanvas.height){
 				maxStep = (this.bgCanvas.height- this.originCoord.y) / stepY;
 				for (i = 1; i <= maxStep; i++){
-					if (i % 4 != 0){
+					if (i % Garapi.info.grid.nMiror != 0){
 						v = this.originCoord.y + i * stepY + 0.5;
 						drawHLine(ctx, v, this.bgCanvas.width);
 					}
@@ -77,7 +81,7 @@ Garapi.AppController = Ember.Object.extend({
 			if (this.originCoord.y >= 0){
 				maxStep = this.originCoord.y / stepY;
 				for (i = 1; i <= maxStep; i++){
-					if (i % 4 != 0){
+					if (i % Garapi.info.grid.nMiror != 0){
 						v = this.originCoord.y - i * stepY + 0.5;
 						drawHLine(ctx, v, this.bgCanvas.width);
 					}
@@ -94,14 +98,14 @@ Garapi.AppController = Ember.Object.extend({
 			// draw Vertical lines
 			if (this.originCoord.x <= this.bgCanvas.width){
 				maxStep = (this.bgCanvas.width - this.originCoord.x) / stepX;
-				for (i = 4; i <= maxStep; i += 4){
+				for (i = Garapi.info.grid.nMiror; i <= maxStep; i += Garapi.info.grid.nMiror){
 					v = this.originCoord.x + i * stepX + 0.5;
 					drawVLine(ctx, v, this.bgCanvas.height);
 				}
 			}
 			if (this.originCoord.x >= 0){
 				maxStep = this.originCoord.x / stepX;
-				for (i = 4; i <= maxStep; i += 4){
+				for (i = Garapi.info.grid.nMiror; i <= maxStep; i += Garapi.info.grid.nMiror){
 					v = this.originCoord.x - i * stepX + 0.5;
 					drawVLine(ctx, v, this.bgCanvas.height);
 				}
@@ -109,14 +113,14 @@ Garapi.AppController = Ember.Object.extend({
 			// draw horizontal lines
 			if (this.originCoord.y <= this.bgCanvas.height){
 				maxStep = (this.bgCanvas.height- this.originCoord.y) / stepY;
-				for (i = 4; i <= maxStep; i += 4){
+				for (i = Garapi.info.grid.nMiror; i <= maxStep; i += Garapi.info.grid.nMiror){
 					v = this.originCoord.y + i * stepY + 0.5;
 					drawHLine(ctx, v, this.bgCanvas.width);
 				}
 			}
 			if (this.originCoord.y >= 0){
 				maxStep = this.originCoord.y / stepY;
-				for (i = 4; i <= maxStep; i += 4 ){
+				for (i = Garapi.info.grid.nMiror; i <= maxStep; i += Garapi.info.grid.nMiror ){
 					v = this.originCoord.y - i * stepY + 0.5;
 					drawHLine(ctx, v, this.bgCanvas.width);
 				}
@@ -161,8 +165,8 @@ Garapi.AppController = Ember.Object.extend({
 			if (overY)
 				bsLineY = st.fontsizeLabel;
 			majorUnit = {
-				x: Garapi.info.grid.nMiror * st.mirorUnit.x,
-				y: Garapi.info.grid.nMiror * st.mirorUnit.y
+				x: Garapi.info.grid.nMiror * st.mirorUnit.x.get('value'),
+				y: Garapi.info.grid.nMiror * st.mirorUnit.y.get('value')
 			}
 			majorGap = {
 				x: Garapi.info.grid.nMiror * this.gapMiror.x,
@@ -174,11 +178,11 @@ Garapi.AppController = Ember.Object.extend({
 			}
 			for ( i = Garapi.ceil(-this.originCoord.x / majorGap.x); i < max.x; i++ ){
 				if (i != 0)
-					ctx.fillText(i * majorUnit.x,i * majorGap.x + this.originCoord.x,  bsLineX );
+					ctx.fillText(st.mirorUnit.x.multiple(i * Garapi.info.grid.nMiror),i * majorGap.x + this.originCoord.x,  bsLineX );
 			}
 			for ( i = Garapi.ceil( (this.originCoord.y - this.bgCanvas.height) / majorGap.y); i < max.y; i++ ){
 				if (i != 0)
-					ctx.fillText(i * majorUnit.y, bsLineY, -i * majorGap.y + this.originCoord.y + 1);
+					ctx.fillText(st.mirorUnit.y.multiple(i * Garapi.info.grid.nMiror), bsLineY, -i * majorGap.y + this.originCoord.y + 1);
 			}
 			ctx.fillText(0, bsLineY, bsLineX);
 		}
@@ -225,13 +229,38 @@ Garapi.AppController = Ember.Object.extend({
 		this.originCoord.y = (mouseY - this.bgCanvas.offset.top ) + Garapi.round((this.originCoord.y - mouseY + this.bgCanvas.offset.top) * z);
 		
 		var gap = this.gapMiror.x * z;
-		if ((gap > Garapi.info.grid.maxXGapMiror) || (gap < Garapi.info.grid.minXGapMiror))
+		if (gap > Garapi.info.grid.maxXGapMiror){
+			this.setting.set('mirorUnit', {
+				x: this.setting.mirorUnit.x.previous(),
+				y: this.setting.mirorUnit.y
+			});
 			gap = Garapi.info.grid.sXGapMiror;
+		}
+		if (gap < Garapi.info.grid.minXGapMiror){
+			this.setting.set('mirorUnit', {
+				x: this.setting.mirorUnit.x.next(),
+				y: this.setting.mirorUnit.y
+			});
+			gap = Garapi.info.grid.sXGapMiror;
+		}
+			
 		this.gapMiror.x = Garapi.round(gap);
 		
 		gap = this.gapMiror.y * z;
-		if ((gap > Garapi.info.grid.maxYGapMiror) || (gap < Garapi.info.grid.minYGapMiror))
+		if (gap > Garapi.info.grid.maxYGapMiror){
+			this.setting.set('mirorUnit', {
+				x: this.setting.mirorUnit.x,
+				y: this.setting.mirorUnit.y.previous()
+			});
 			gap = Garapi.info.grid.sYGapMiror;
+		}
+		if (gap < Garapi.info.grid.minYGapMiror){
+			this.setting.set('mirorUnit', {
+				x: this.setting.mirorUnit.x,
+				y: this.setting.mirorUnit.y.next()
+			});
+			gap = Garapi.info.grid.sYGapMiror;
+		}
 		this.gapMiror.y = Garapi.round(gap);
 		
 		this.redrawBackground();
@@ -245,12 +274,16 @@ Garapi.AppController = Ember.Object.extend({
 		this.originCoord = {
 			x: this.bgCanvas.centerCoord.x,
 			y: this.bgCanvas.centerCoord.y
-		}
+		};
+		this.setting.set('mirorUnit', {
+			x: Garapi.MirorUnit.create(),
+			y: Garapi.MirorUnit.create()
+		});
 		this.redrawBackground();
 	},
-	resize: function(isShowSidebar){
-		this.bgCanvas.set('width', window.innerWidth - 10);
-		this.bgCanvas.set('height', window.innerHeight - 10);
+	resize: function(){
+		this.bgCanvas.set('width', window.innerWidth - (this.isShowSidebar? Garapi.info.sidebar.width : Garapi.info.dimension.canvasDeltaX));
+		this.bgCanvas.set('height', window.innerHeight - Garapi.info.dimension.canvasDeltaY);
 		this.bgCanvas.refreshContext();
 		
 		Ember.run.later(this, "redrawBackground", 300);
@@ -271,5 +304,11 @@ Garapi.AppController = Ember.Object.extend({
 		} else {
 			context.strokeText( string, x, y );
 		}
-	}
+	},
+	toggleSidebar: function(){
+		this.resize();
+	}.observes('isShowSidebar'),
+	zoomStyle: function(){
+		return (this.isShowSidebar ? "top: 5px" : "top: 40px");
+	}.property('isShowSidebar'),
 })
